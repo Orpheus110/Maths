@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mathematics in AI, Technology & IT</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+    --bg:#05070a;
+    --card:rgba(255,255,255,0.05);
+    --border:rgba(255,255,255,0.08);
+    --text:#ffffff;
+    --secondary:#9ca3af;
+    --accent:#00e5ff;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    scroll-behavior:smooth;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+}
+
+canvas{
+    position:fixed;
+    inset:0;
+    z-index:-2;
+}
+
+.gradient{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    background:
+    radial-gradient(circle at 20% 20%, rgba(0,229,255,.15), transparent 30%),
+    radial-gradient(circle at 80% 30%, rgba(88,101,242,.15), transparent 35%),
+    radial-gradient(circle at 50% 80%, rgba(0,255,170,.08), transparent 30%);
+}
+
+nav{
+    position:fixed;
+    top:0;
+    width:100%;
+    padding:20px 8%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    backdrop-filter:blur(18px);
+    background:rgba(0,0,0,.2);
+    border-bottom:1px solid rgba(255,255,255,.05);
+    z-index:999;
+}
+
+.logo{
+    font-weight:800;
+    letter-spacing:2px;
+}
+
+nav ul{
+    display:flex;
+    list-style:none;
+    gap:30px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    transition:.3s;
+}
+
+nav a:hover{
+    color:var(--accent);
+}
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    text-align:center;
+    padding:0 20px;
+}
+
+.badge{
+    padding:10px 20px;
+    border-radius:999px;
+    border:1px solid rgba(0,229,255,.3);
+    background:rgba(0,229,255,.08);
+    margin-bottom:25px;
+}
+
+.hero h1{
+    font-size:clamp(3rem,8vw,6rem);
+    max-width:1100px;
+    line-height:1;
+    font-weight:800;
+}
+
+.hero span{
+    background:linear-gradient(
+        90deg,
+        #00e5ff,
+        #7c3aed
+    );
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.hero p{
+    max-width:800px;
+    margin-top:25px;
+    color:var(--secondary);
+    line-height:1.8;
+    font-size:1.1rem;
+}
+
+.cta{
+    margin-top:40px;
+    display:flex;
+    gap:20px;
+}
+
+.btn{
+    padding:15px 28px;
+    border-radius:999px;
+    text-decoration:none;
+    color:white;
+    border:1px solid rgba(255,255,255,.15);
+    transition:.4s;
+}
+
+.btn:hover{
+    transform:translateY(-4px);
+}
+
+.primary{
+    background:linear-gradient(
+    135deg,
+    #00e5ff,
+    #5865f2);
+}
+
+section{
+    width:min(1200px,90%);
+    margin:auto;
+    padding:80px 0;
+}
+
+.section-title{
+    font-size:2.8rem;
+    margin-bottom:20px;
+}
+
+.section-sub{
+    color:var(--secondary);
+    max-width:700px;
+    line-height:1.8;
+}
+
+.grid{
+    margin-top:50px;
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(300px,1fr));
+    gap:25px;
+}
+
+.card{
+    background:var(--card);
+    border:1px solid var(--border);
+    backdrop-filter:blur(15px);
+    border-radius:24px;
+    padding:30px;
+    transition:.5s;
+}
+
+.card:hover{
+    transform:
+    translateY(-10px)
+    scale(1.02);
+    border-color:
+    rgba(0,229,255,.3);
+}
+
+.card h3{
+    margin-bottom:15px;
+    font-size:1.4rem;
+}
+
+.card p{
+    color:var(--secondary);
+    line-height:1.8;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    margin-top:40px;
+}
+
+.stat{
+    text-align:center;
+    padding:35px;
+    border-radius:20px;
+    background:var(--card);
+    border:1px solid var(--border);
+}
+
+.stat h2{
+    font-size:3rem;
+    color:var(--accent);
+}
+
+.timeline{
+    margin-top:50px;
+}
+
+.point{
+    padding:25px;
+    margin-bottom:20px;
+    border-left:3px solid var(--accent);
+    background:rgba(255,255,255,.03);
+}
+
+footer{
+    text-align:center;
+    padding:80px 20px;
+    color:var(--secondary);
+}
+
+.reveal{
+    opacity:0;
+    transform:translateY(60px);
+    transition:1s;
+}
+
+.reveal.active{
+    opacity:1;
+    transform:translateY(0);
+}
+
+@media(max-width:768px){
+
+nav ul{
+    display:none;
+}
+
+.hero h1{
+    line-height:1.1;
+}
+
+.cta{
+    flex-direction:column;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="bg"></canvas>
+<div class="gradient"></div>
+
+<nav>
+    <div class="logo">Developed by Khush Parikh</div>
+
+    <ul>
+        <li><a href="#ai">AI</a></li>
+        <li><a href="#technology">Technology</a></li>
+        <li><a href="#it">IT</a></li>
+        <li><a href="#future">Future</a></li>
+    </ul>
+</nav>
+
+<section class="hero">
+
+    <div class="badge">
+        Mathematics • Artificial Intelligence • Technology
+    </div>
+
+    <h1>
+        Mathematics is the
+        <span>Invisible Engine</span>
+        Behind Modern Technology
+    </h1>
+
+    <p>
+        Every intelligent machine, secure network, search engine,
+        recommendation system and technological innovation is built
+        upon mathematical principles. Mathematics acts as the language
+        through which computers understand, process and transform data
+        into meaningful outcomes.
+    </p>
+
+    <div class="cta">
+        <a href="#ai" class="btn primary">Explore</a>
+        <a href="#future" class="btn">Learn More</a>
+    </div>
+
+</section>
+
+<section id="ai" class="reveal">
+
+    <h2 class="section-title">
+        Mathematics in Artificial Intelligence
+    </h2>
+
+    <p class="section-sub">
+        Artificial Intelligence relies heavily on mathematical concepts.
+        Machine Learning models learn patterns through equations,
+        optimization techniques and statistical analysis.
+    </p>
+
+    <div class="grid">
+
+        <div class="card">
+            <h3>Linear Algebra</h3>
+            <p>
+                Vectors, matrices and tensors form the backbone
+                of neural networks. Every image, sound and text
+                processed by AI is represented mathematically.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Calculus</h3>
+            <p>
+                Gradient Descent uses derivatives to minimize
+                errors and improve model accuracy during training.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Probability & Statistics</h3>
+            <p>
+                AI systems make predictions using statistical
+                models and probability distributions.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+<section id="technology" class="reveal">
+
+    <h2 class="section-title">
+        Mathematics in Technology
+    </h2>
+
+    <p class="section-sub">
+        Technology depends on mathematics for design,
+        simulation, communication and optimization.
+    </p>
+
+    <div class="grid">
+
+        <div class="card">
+            <h3>Computer Graphics</h3>
+            <p>
+                Video games and 3D applications use geometry,
+                trigonometry and matrix transformations.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Robotics</h3>
+            <p>
+                Robots use mathematical algorithms to navigate,
+                detect obstacles and perform tasks accurately.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Telecommunication</h3>
+            <p>
+                Signals are transmitted efficiently using
+                mathematical encoding and processing techniques.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+<section id="it" class="reveal">
+
+    <h2 class="section-title">
+        Mathematics in Information Technology
+    </h2>
+
+    <div class="grid">
+
+        <div class="card">
+            <h3>Cryptography</h3>
+            <p>
+                Prime numbers and modular arithmetic secure
+                digital communications and online transactions.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Algorithms</h3>
+            <p>
+                Mathematical logic helps create efficient
+                algorithms for searching and sorting data.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Data Science</h3>
+            <p>
+                Statistics and probability enable organizations
+                to extract insights from massive datasets.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="reveal">
+
+    <h2 class="section-title">
+        Impact of Mathematics
+    </h2>
+
+    <div class="stats">
+
+        <div class="stat">
+            <h2>AI</h2>
+            <p>Powered by Mathematical Models</p>
+        </div>
+
+        <div class="stat">
+            <h2>3D</h2>
+            <p>Driven by Geometry & Trigonometry</p>
+        </div>
+
+        <div class="stat">
+            <h2>∞</h2>
+            <p>Applications Across Industries</p>
+        </div>
+
+        <div class="stat">
+            <h2>24/7</h2>
+            <p>Technology Uses Mathematics Constantly</p>
+        </div>
+
+    </div>
+
+</section>
+
+<section id="future" class="reveal">
+
+    <h2 class="section-title">
+        Future of Mathematics in Technology
+    </h2>
+
+    <div class="timeline">
+
+        <div class="point">
+            Quantum Computing will require advanced mathematical frameworks.
+        </div>
+
+        <div class="point">
+            Artificial General Intelligence will depend on sophisticated optimization models.
+        </div>
+
+        <div class="point">
+            Smart Cities will use predictive analytics and mathematical simulations.
+        </div>
+
+        <div class="point">
+            Cybersecurity will continue evolving through mathematical encryption techniques.
+        </div>
+
+    </div>
+
+</section>
+
+<footer>
+
+    <h2 style="margin-bottom:20px;">
+        Mathematics: The Foundation of AI, Technology & IT
+    </h2>
+
+    <p>
+        Prepared as an academic project demonstrating the role
+        of mathematics in shaping modern technological innovations.
+    </p>
+
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<script>
+
+/* WEBGL PARTICLES */
+
+const scene = new THREE.Scene();
+
+const camera = new THREE.PerspectiveCamera(
+75,
+window.innerWidth/window.innerHeight,
+0.1,
+1000
+);
+
+const renderer = new THREE.WebGLRenderer({
+canvas:document.getElementById("bg"),
+alpha:true
+});
+
+renderer.setSize(
+window.innerWidth,
+window.innerHeight
+);
+
+camera.position.z=5;
+
+const particlesGeometry =
+new THREE.BufferGeometry();
+
+const particleCount = 5000;
+
+const pos =
+new Float32Array(
+particleCount*3
+);
+
+for(let i=0;i<particleCount*3;i++){
+pos[i]=(Math.random()-0.5)*30;
+}
+
+particlesGeometry.setAttribute(
+'position',
+new THREE.BufferAttribute(pos,3)
+);
+
+const particlesMaterial =
+new THREE.PointsMaterial({
+size:0.02
+});
+
+const particles =
+new THREE.Points(
+particlesGeometry,
+particlesMaterial
+);
+
+scene.add(particles);
+
+function animate(){
+
+requestAnimationFrame(animate);
+
+particles.rotation.y += 0.0004;
+particles.rotation.x += 0.00015;
+
+renderer.render(scene,camera);
+}
+
+animate();
+
+window.addEventListener('resize',()=>{
+
+camera.aspect=
+window.innerWidth/window.innerHeight;
+
+camera.updateProjectionMatrix();
+
+renderer.setSize(
+window.innerWidth,
+window.innerHeight
+);
+
+});
+
+/* SCROLL REVEAL */
+
+const reveals =
+document.querySelectorAll(".reveal");
+
+window.addEventListener("scroll",()=>{
+
+reveals.forEach(el=>{
+
+const top =
+el.getBoundingClientRect().top;
+
+if(top < window.innerHeight-100){
+el.classList.add("active");
+}
+
+});
+
+});
+
+</script>
+
+</body>
+</html>
